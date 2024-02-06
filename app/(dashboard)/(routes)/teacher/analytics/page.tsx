@@ -1,7 +1,7 @@
 const AnalyticsPage = () => {
     return ( 
         <div>
-            Analytics Page
+            Analytics Page!
         </div>
      );
 }
