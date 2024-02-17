@@ -5,7 +5,73 @@ generator client {
   provider = "prisma-client-js"
 }
 
+// datasource db {
+//   provider = "postgresql"
+//   url      = env("DATABASE_URL")
+//   relationMode = "prisma"
+// }
+
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider = "cockroachdb"
+  url      = env("COCKROACHDB_URL")
+}
+
+
+// model Course {
+//   id String @id @default(uuid())
+//   userId String 
+//   title String? @db
+//   description String? @db.Text
+//   imageUrl String? @db.Text
+//   price Float?
+//   isPublished Boolean @default(false)
+
+//   categoryId String?
+//   category Category? @relation(fields: [categoryId], references: [id])
+
+//   attachments Attachment[]
+
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+
+//   @@index([categoryId])
+// }
+model Course {
+  id String @id @default(uuid())
+  userId String 
+  title String?
+  description String?
+  imageUrl String?
+  price Float?
+  isPublished Boolean @default(false)
+
+  categoryId String?
+  category Category? @relation(fields: [categoryId], references: [id])
+
+  attachments Attachment[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([categoryId])
+}
+
+model Category{
+  id String @id @default(uuid())
+  name String @unique
+  courses Course[]
+}
+
+model Attachment{
+  id String @id @default(uuid())
+  name String
+  url String 
+
+  CourseId String
+  course Course @relation(fields: [CourseId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([CourseId])
 }
