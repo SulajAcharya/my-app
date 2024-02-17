@@ -14,7 +14,8 @@ pnpm dev
 bun dev
 ```
 ```bash
-#npx prisma studio for accessing the database
+npx prisma studio
+#for accessing the database
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
