@@ -5,6 +5,7 @@ const config: Config = {
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/**/*.{ts,tsx,mdx}', // Add this line to include files specified by uploadthing
   ],
   theme: {
     extend: {
@@ -18,3 +19,4 @@ const config: Config = {
   plugins: [],
 }
 export default config
+
