@@ -88,7 +88,7 @@ model Chapter{
   videoUrl String?
   position Int
   isPublished Boolean @default(false)
-  isFree Boolean @default(false)
+  isfree Boolean @default(false)
 
   muxData MuxData?
 
@@ -104,7 +104,7 @@ model Chapter{
 
 model MuxData{
   id String @id @default(uuid())
-  assetsId String
+  assetId String
   playbackId String?
 
   chapterId String @unique 
