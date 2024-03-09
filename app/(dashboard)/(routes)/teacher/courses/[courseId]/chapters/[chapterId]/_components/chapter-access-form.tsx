@@ -20,6 +20,8 @@ import {
 } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { Editor } from "@/components/editor";
+import { Preview } from "@/components/preview";
 import { Checkbox } from "@/components/ui/checkbox";
 
 interface ChapterAccessFormProps {
@@ -29,7 +31,7 @@ interface ChapterAccessFormProps {
 };
 
 const formSchema = z.object({
-  isFree: z.boolean().default(false),
+  isfree: z.boolean().default(false),
 });
 
 export const ChapterAccessForm = ({
@@ -46,7 +48,7 @@ export const ChapterAccessForm = ({
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      isFree: !!initialData.isFree
+      isfree: !!initialData.isfree
     },
   });
 
@@ -81,9 +83,9 @@ export const ChapterAccessForm = ({
       {!isEditing && (
         <p className={cn(
           "text-sm mt-2",
-          !initialData.isFree && "text-slate-500 italic"
+          !initialData.isfree && "text-slate-500 italic"
         )}>
-          {initialData.isFree ? (
+          {initialData.isfree ? (
             <>This chapter is free for preview.</>
           ) : (
             <>This chapter is not free.</>
@@ -98,7 +100,7 @@ export const ChapterAccessForm = ({
           >
             <FormField
               control={form.control}
-              name="isFree"
+              name="isfree"
               render={({ field }) => (
                 <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
                   <FormControl>
