@@ -3,6 +3,7 @@
 
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["fullTextSearch","fullTextIndex"]
 }
 
   // datasource db {
@@ -14,28 +15,8 @@ generator client {
 datasource db {
   provider = "cockroachdb"
   url      = env("COCKROACHDB_URL")
+  relationMode = "prisma"
 }
-
-
-// model Course {
-//   id String @id @default(uuid())
-//   userId String 
-//   title String? @db
-//   description String? @db.Text
-//   imageUrl String? @db.Text
-//   price Float?
-//   isPublished Boolean @default(false)
-
-//   categoryId String?
-//   category Category? @relation(fields: [categoryId], references: [id])
-
-//   attachments Attachment[]
-
-//   createdAt DateTime @default(now())
-//   updatedAt DateTime @updatedAt
-
-//   @@index([categoryId])
-// }
 
 model Course {
   id String @id @default(uuid())
@@ -58,7 +39,8 @@ model Course {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@index([categoryId])
+  @@index([categoryId]) 
+  @@fulltext([title])
 }
 
 model Category{
@@ -81,14 +63,14 @@ model Attachment{
   @@index([CourseId])
 }
 
-model Chapter{
+model Chapter {
   id String @id @default(uuid())
   title String
   description String? 
-  videoUrl String?
+  videoUrl String? 
   position Int
   isPublished Boolean @default(false)
-  isfree Boolean @default(false)
+  isFree Boolean @default(false)
 
   muxData MuxData?
 
@@ -96,6 +78,7 @@ model Chapter{
   course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
 
   userProgress UserProgress[]
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -148,3 +131,24 @@ model StripeCustomer{
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+
+// model Course {
+//   id String @id @default(uuid())
+//   userId String 
+//   title String? @db
+//   description String? @db.Text
+//   imageUrl String? @db.Text
+//   price Float?
+//   isPublished Boolean @default(false)
+
+//   categoryId String?
+//   category Category? @relation(fields: [categoryId], references: [id])
+
+//   attachments Attachment[]
+
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+
+//   @@index([categoryId])
+// }
