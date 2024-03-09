@@ -31,7 +31,7 @@ interface ChapterAccessFormProps {
 };
 
 const formSchema = z.object({
-  isfree: z.boolean().default(false),
+  isFree: z.boolean().default(false),
 });
 
 export const ChapterAccessForm = ({
@@ -48,7 +48,7 @@ export const ChapterAccessForm = ({
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      isfree: !!initialData.isfree
+      isFree: !!initialData.isFree
     },
   });
 
@@ -83,9 +83,9 @@ export const ChapterAccessForm = ({
       {!isEditing && (
         <p className={cn(
           "text-sm mt-2",
-          !initialData.isfree && "text-slate-500 italic"
+          !initialData.isFree && "text-slate-500 italic"
         )}>
-          {initialData.isfree ? (
+          {initialData.isFree ? (
             <>This chapter is free for preview.</>
           ) : (
             <>This chapter is not free.</>
@@ -100,7 +100,7 @@ export const ChapterAccessForm = ({
           >
             <FormField
               control={form.control}
-              name="isfree"
+              name="isFree"
               render={({ field }) => (
                 <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
                   <FormControl>
