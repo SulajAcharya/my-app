@@ -22,7 +22,7 @@ export const CoursesList = ({
           <CourseCard
             key={item.id}
             id={item.id}
-            title={item.title} 
+            title={item.title}
             imageUrl={item.imageUrl!}
             chaptersLength={item.chapters.length}
             price={item.price!}

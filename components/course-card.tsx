@@ -18,7 +18,7 @@ interface CourseCardProps {
 
 export const CourseCard = ({
   id,
-  title ,
+  title,
   imageUrl,
   chaptersLength,
   price,
