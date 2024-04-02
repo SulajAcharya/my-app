@@ -22,9 +22,7 @@ model Course {
   category Category? @relation(fields: [categoryId], references: [id])
 
   chapters Chapter[]
-
   attachments Attachment[]
-
   purchases Purchase[]
 
   createdAt DateTime @default(now())
@@ -45,13 +43,13 @@ model Attachment {
   name String
   url String 
 
-  CourseId String
-  course Course @relation(fields: [CourseId], references: [id], onDelete: Cascade)
+  courseId String
+  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@index([CourseId])
+  @@index([courseId])
 }
 
 model Chapter {
