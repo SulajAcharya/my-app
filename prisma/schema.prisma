@@ -12,13 +12,13 @@ datasource db {
 model Course {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   userId String 
-  title String?
+  title String
   description String?
   imageUrl String?
   price Float?
   isPublished Boolean @default(false)
 
-  categoryId String?
+  categoryId String? @db.ObjectId
   category Category? @relation(fields: [categoryId], references: [id])
 
   chapters Chapter[]
@@ -43,13 +43,13 @@ model Attachment {
   name String
   url String 
 
-  courseId String
-  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  CourseId String @db.ObjectId
+  course Course @relation(fields: [CourseId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@index([courseId])
+  @@index([CourseId])
 }
 
 model Chapter {
@@ -63,7 +63,7 @@ model Chapter {
 
   muxData MuxData?
 
-  courseId String
+  courseId String @db.ObjectId
   course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
 
   userProgress UserProgress[]
@@ -79,7 +79,7 @@ model MuxData {
   assetId String
   playbackId String?
 
-  chapterId String @unique 
+  chapterId String @unique  @db.ObjectId
   chapter Chapter @relation(fields: [chapterId], references: [id], onDelete: Cascade) 
 }
 
@@ -87,7 +87,7 @@ model UserProgress {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   userId String
 
-  chapterId String
+  chapterId String @db.ObjectId
   chapter Chapter @relation(fields: [chapterId], references: [id], onDelete: Cascade)
 
   isCompleted Boolean @default(false)
@@ -103,7 +103,7 @@ model Purchase {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   userId String
 
-  courseId String
+  courseId String @db.ObjectId
   course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
